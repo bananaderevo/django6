@@ -23,3 +23,15 @@ class Post(models.Model):
 
     def __str__(self):
         return f'Post: {self.id}'
+
+
+class Quotes(models.Model):
+    quotes = models.CharField(max_length=300)
+    author = models.OneToOneField(Author, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = 'Quotes'
+
+    def __str__(self):
+        return f'Quote: {self.id}'
