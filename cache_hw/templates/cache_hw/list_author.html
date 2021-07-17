@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Posts</title>
+    <title>Authors</title>
 </head>
 <body>
-Count of posts: {{ count_posts }}
+Count of authors: {{ count_authors }}
 {% block content %}
     {% if page_obj %}
         {% for i in page_obj %}
             <table border="2" bordercolor="black" bgcolor="white" width="300"> <!-- New table in every loop is correct -->
-                <tr><td style="width:300px">{{ i.text }}</td></tr>
-                <tr><td style="width:300px">Author: {{ i.author }}</td></tr>
+                <tr><td style="width:300px">{{ i.name }}</td></tr>
+                <tr><td style="width:300px">Info: {{ i.info }}</td></tr>
             </table>
         {% endfor %}
 
     {% else %}
-        <h1>There are not any posts, add some.</h1>
+        <h1>There are not any authors, add some.</h1>
     {% endif %}
     {% include "cache_hw/pagination.html"%}
 {% endblock %}

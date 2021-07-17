@@ -1,19 +1,30 @@
-from django.db.models import Avg, Count
-
-from django.shortcuts import HttpResponseRedirect, render
-from django.views.generic import DetailView, ListView
+from django.db.models import Count
+from django.core.paginator import Paginator
+from django.views.decorators.cache import cache_page
+from django.shortcuts import render
 
 from .models import Author, Post
 
 
-class PostListView(ListView):
-    paginate_by = 100
-    model = Post
-    fields = ['text', 'author']
-    template_name = 'cache_hw/list_post.html'
-    count = Post.objects.annotate(num_books=Count('text')).count
+def authors(request):
+    object_list = Author.objects.all()
+    paginator = Paginator(object_list, 100)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    count_authors = Author.objects.annotate(num_authors=Count('name')).count
+    return render(request, 'cache_hw/list_author.html', {'page_obj': page_obj,
+                                                         'count_authors': count_authors})
 
 
-# def list(request):
-#     object_list = Post.objects.all()
-#     return render(request, 'cache_hw/list_post.html', {'object_list': object_list})
+@cache_page(60 * 15)
+def posts(request):
+    object_list = Post.objects.all()
+    paginator = Paginator(object_list, 100)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    count_posts = Post.objects.annotate(num_posts=Count('text')).count
+    return render(request, 'cache_hw/list_post.html', {'page_obj': page_obj,
+                                                       'count_posts': count_posts})
+

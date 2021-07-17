@@ -1,8 +1,12 @@
-from django.urls import path
+from django.urls import include, path
+from django.views.decorators.cache import cache_page
+
 
 from . import views
 
 app_name = 'cache_hw'
 urlpatterns = [
-    path('', views.PostListView.as_view(), name='posts'),
-    ]
+    path('', views.posts, name='posts'),
+    path('authors/', views.authors, name='authors'),
+
+]
