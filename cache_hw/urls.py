@@ -8,5 +8,6 @@ app_name = 'cache_hw'
 urlpatterns = [
     path('', views.posts, name='posts'),
     path('authors/', views.authors, name='authors'),
+    path('quotes/', views.quotes, name='quotes'),
 
 ]

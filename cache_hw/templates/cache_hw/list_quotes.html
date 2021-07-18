@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Posts</title>
+</head>
+<body>
+Count of posts: {{ count_posts }}
+{% block content %}
+    {% if page_obj %}
+        {% for i in page_obj %}
+            <table border="2" bordercolor="black" bgcolor="white" width="300"> <!-- New table in every loop is correct -->
+                <tr><td style="width:300px">{{ i.quotes }}</td></tr>
+                <tr><td style="width:300px">Author: {{ i.author }}</td></tr>
+            </table>
+        {% endfor %}
+
+    {% else %}
+        <h1>There are not any posts, add some.</h1>
+    {% endif %}
+    {% include "cache_hw/pagination.html"%}
+{% endblock %}
+</body>
+</html>
