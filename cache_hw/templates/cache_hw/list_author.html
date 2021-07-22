@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Authors</title>
-</head>
-<body>
-Count of authors: {{ count_authors }}
+{% extends 'cache_hw/base.html' %}
+{% block title %}Authors{% endblock %}
+
 {% block content %}
+    Count of authors: {{ count_authors }}
     {% if page_obj %}
         {% for i in page_obj %}
             <table border="2" bordercolor="black" bgcolor="white" width="300"> <!-- New table in every loop is correct -->
@@ -20,5 +16,3 @@ Count of authors: {{ count_authors }}
     {% endif %}
     {% include "cache_hw/pagination.html"%}
 {% endblock %}
-</body>
-</html>

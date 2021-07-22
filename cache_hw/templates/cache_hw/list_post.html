@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Posts</title>
-</head>
-<body>
-Count of posts: {{ count_posts }}
-{% block content %}
+{% extends 'cache_hw/base.html' %}
+{% block title %}Posts{% endblock %}
+
+{% block content %}Count of posts: {{ count_posts }}
+    {% load custom %}
     {% if page_obj %}
         {% for i in page_obj %}
             <table border="2" bordercolor="black" bgcolor="white" width="300"> <!-- New table in every loop is correct -->
-                <tr><td style="width:300px">{{ i.text }}</td></tr>
+                <tr><td style="width:300px">{{ i.text|censoring:list1 }}</td></tr>
                 <tr><td style="width:300px">Author: {{ i.author }}</td></tr>
             </table>
         {% endfor %}
@@ -20,5 +16,3 @@ Count of posts: {{ count_posts }}
     {% endif %}
     {% include "cache_hw/pagination.html"%}
 {% endblock %}
-</body>
-</html>
